@@ -1,0 +1,11 @@
+# Visual Studio
+.vs/
+
+# Paket and NuGet packages
+/.paket/paket.exe
+packages/
+
+# Build results
+.fake/
+bin/
+obj/

@@ -1,0 +1,5 @@
+source http://nuget.org/api/v2
+
+group build
+  source http://nuget.org/api/v2
+  nuget FAKE ~> 4.0

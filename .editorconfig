@@ -1,0 +1,22 @@
+root = true
+
+[*]
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.sln]
+charset = utf-8
+
+[*.*proj]
+charset = utf-8-bom
+insert_final_newline = false
+
+[*.{cs,fs,fsx}]
+charset = utf-8
+indent_style = space
+indent_size = 4
+
+[*.{xml,config}]
+charset = utf-8
+indent_style = space
+indent_size = 2
