@@ -7,31 +7,38 @@ open Fake.ProcessHelper
 
 let solutionFile = "Hakudu.sln"
 
-let executableDir buildConfiguration = __SOURCE_DIRECTORY__ </> "src/Hakudu/bin" </> buildConfiguration
-let executableFile buildConfiguration = (executableDir buildConfiguration) </> "hakudueng.exe"
+let executableDir configuration = __SOURCE_DIRECTORY__ </> "src/Hakudu/bin" </> configuration
+let executableFile configuration = (executableDir configuration) </> "hakudueng.exe"
 
-Target "Clean" (fun _ ->
-    !! solutionFile
-    |> MSBuildDebug "" "Clean"
-    |> ignore
-)
+let BuildTarget name configuration target =
+    TargetTemplate (fun _ ->
+        !! solutionFile
+        |> MSBuild null target [ "Configuration", configuration ]
+        |> ignore
+    ) name ()
 
-Target "Build" (fun _ ->
-    !! solutionFile
-    |> MSBuildDebug "" "Build"
-    |> ignore
-)
+let BuildDebugTarget name = BuildTarget name "Debug"
+let BuildReleaseTarget name = BuildTarget name "Release"
 
-Target "Run" (fun _ ->
+BuildDebugTarget "clean-debug" "Clean"
+BuildReleaseTarget "clean" "Clean"
+
+BuildDebugTarget "build-debug" "Build"
+BuildReleaseTarget "build" "Build"
+
+BuildDebugTarget "rebuild-debug" "Rebuild"
+BuildReleaseTarget "rebuild" "Rebuild"
+
+Target "run" (fun _ ->
+    let buildConfiguration = "Debug"
     execProcess (fun p ->
-        let buildConfiguration = "Debug"
         p.FileName <- executableFile buildConfiguration
         p.WorkingDirectory <- executableDir buildConfiguration
         p |> platformInfoAction
     ) TimeSpan.MaxValue |> ignore
 )
 
-"Build"
-    ==> "Run"
+"build-debug"
+    ==> "run"
 
-RunTargetOrDefault "Build"
+RunTargetOrDefault "build"
