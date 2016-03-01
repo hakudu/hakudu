@@ -9,3 +9,4 @@ packages/
 .fake/
 bin/
 obj/
+/dist/
