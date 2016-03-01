@@ -9,8 +9,8 @@ let executablePath =
 
 let executableVersion =
     let assembly = Assembly.GetEntryAssembly()
-    let fileVersionAttribute = assembly.GetCustomAttribute<AssemblyFileVersionAttribute>()
-    if not (isNull fileVersionAttribute) then fileVersionAttribute.Version else String.Empty
+    let versionAttribute = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+    if not (isNull versionAttribute) then versionAttribute.InformationalVersion else String.Empty
 
 let environVars =
     Environment.GetEnvironmentVariables() |> Seq.cast<DictionaryEntry> |> Seq.map (fun e -> e.Key :?> string, e.Value :?> string)
