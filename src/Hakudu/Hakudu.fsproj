@@ -48,6 +48,13 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Env.fs" />
+    <Compile Include="proc.fs" />
+    <Compile Include="kudusync.fs" />
+    <Compile Include="Tasks\node.fs" />
+    <Compile Include="Tasks\npm.fs" />
+    <Compile Include="Tasks\bower.fs" />
+    <Compile Include="Tasks\gulp.fs" />
     <Compile Include="Properties\AssemblyInfo.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
